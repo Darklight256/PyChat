@@ -43,15 +43,25 @@ def set_new_password(name, fname, lname, pwd) :
     connection.commit()
 ##############################################
 
-##############################REGISTERATION
+##############################VALID USERNAME FOR REGISTERATION
 #in client -> fname & lname -> username
-def valid_username (name, fname, lname) :
+def valid_username_reg (name, fname, lname) :
     sql = "SELECT username FROM usr WHERE username = name"
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
     if len(myresult) > 0 :
         return False
     return True
+##########################################
+
+##############################VALID USERNAME
+def valid_username_reg (name) :
+    sql = "SELECT username FROM usr WHERE username = name"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    if len(myresult) > 0 :
+        return True
+    return False
 ##########################################
 
 #############################CHECK PASSWORD
