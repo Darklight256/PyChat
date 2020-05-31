@@ -84,4 +84,35 @@ def dlt_account (name, hsh) :
         reset_database_user(name)
         return True
     return False
-###########################################
+############################################
+
+#############################SECURITY QUESTIONS
+#new database name -> question
+def secure_question (name, ans1, ans2, ans3) :
+    sql = "INSERT INTO question (username, answer1, answer2, answer3) VALUES ("+name+", "+ans1+", "+ans2+", "+ans3+")";
+    mycursor.execute(sql)
+    connection.commit()
+###############################################
+
+#############################CHECK ANSWER OF QUESTION
+def check_security_answer(name, ans1, ans2, ans3) :
+    flag = True
+    sql = "SELECT answer1 FROM question WHERE username = name"
+    mycursor.execute(sql)
+    mycursor = mycursor.fetchall()
+    if mycursor != ans1 :
+        flag = False
+
+    sql = "SELECT answer2 FROM question WHERE username = name"
+    mycursor.execute(sql)
+    mycursor = mycursor.fetchall()
+    if mycursor != ans2 :
+        flag = False
+
+    sql = "SELECT answer3 FROM question WHERE username = name"
+    mycursor.execute(sql)
+    mycursor = mycursor.fetchall()
+    if mycursor != ans3 :
+        flag = False
+    return flag
+#####################################################
