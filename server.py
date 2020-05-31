@@ -55,7 +55,7 @@ def valid_username_reg (name, fname, lname) :
 ##########################################
 
 ##############################VALID USERNAME
-def valid_username_reg (name) :
+def valid_username (name) :
     sql = "SELECT username FROM usr WHERE username = name"
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
@@ -129,6 +129,8 @@ def check_security_answer(name, ans1, ans2, ans3) :
 #############################ADD FRIEND
 #should be check
 def add_friend (name, new_frnd) :
+    if valid_username(new_frnd) == False :
+        return False
     sql = "SELECT friend_cnt FROM contact WHERE username = name"
     mycursor.execute(sql)
     counter = mycursor.fetchall()
@@ -144,4 +146,5 @@ def add_friend (name, new_frnd) :
     sql = "UPDATE contact SET friends = friends_list + "+new_frnd+" WHERE username = name";
     mycursor.execute(sql)
     connection.commit()
+    return True
 #######################################
