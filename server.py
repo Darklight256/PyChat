@@ -115,3 +115,23 @@ def check_security_answer(name, ans1, ans2, ans3) :
         flag = False
     return flag
 #####################################################
+
+#############################ADD FRIEND
+#should be check
+def add_friend (name, new_frnd) :
+    sql = "SELECT friend_cnt FROM contact WHERE username = name"
+    mycursor.execute(sql)
+    counter = mycursor.fetchall()
+
+    sql = "UPDATE contact SET friend_cnt = counter + 1 WHERE username = name";
+    mycursor.execute(sql)
+    connection.commit()
+
+    sql = "SELECT friends FROM contact WHERE username = name"
+    mycursor.execute(sql)
+    friends_list = mycursor.fetchall()
+
+    sql = "UPDATE contact SET friends = friends_list + "+new_frnd+" WHERE username = name";
+    mycursor.execute(sql)
+    connection.commit()
+#######################################
