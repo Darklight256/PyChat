@@ -42,7 +42,7 @@ def valid_username_reg (name, fname, lname) :
     if len(myresult) > 0 :
         return False
     return True
-##########################################
+###############################################################
 
 ##############################VALID USERNAME
 def valid_username (name) :
@@ -86,12 +86,12 @@ def dlt_account (name, hsh) :
     return False
 ############################################
 
-#############################SECURITY QUESTIONS
+#############################INSERT ANSWERS
 def secure_question (name, ans1, ans2, ans3) :
     sql = "INSERT INTO `question` (username, answer1, answer2, answer3) VALUES ("+name+", "+ans1+", "+ans2+", "+ans3+")";
     mycursor.execute(sql)
     connection.commit()
-###############################################
+###########################################
 
 #############################CHECK ANSWER OF QUESTION
 def check_security_answer(name, ans1, ans2, ans3) :
@@ -159,4 +159,29 @@ def del_friend (name, del_frnd) :
     connection.commit()
 
     return True
-#######################################
+##########################################
+
+#############################CHANGE RANDOM STATUS
+def change_random_status (name, stts) :
+    sql = "SELECT uid FROM `usr` WHERE username = " + name
+    mycursor.execute(sql)
+    name_uid = mycursor.fetchall()
+
+    if stts == 1 :
+        sql = "SELECT uid FROM `random` WHERE uid = " + str(name_uid)
+        mycursor.execute(sql)
+        myres = mycursor.fetchall()
+        if myres > 0 :
+            pass
+        sql = "INSERT INTO `random` (uid) VALUES (str(name_uid))"
+        mycursor.execute(sql)
+        connection.commit()
+    else :
+        sql = "DELETE FROM `random` WHERE uid = " + str(name_uid)
+        mycursor.execute(sql)
+        connection.commit()
+##########################################
+
+#############################MATCH RANDOM
+
+#########################################
