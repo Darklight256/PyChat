@@ -87,7 +87,6 @@ def dlt_account (name, hsh) :
 ############################################
 
 #############################SECURITY QUESTIONS
-#new database name -> question
 def secure_question (name, ans1, ans2, ans3) :
     sql = "INSERT INTO question (username, answer1, answer2, answer3) VALUES ("+name+", "+ans1+", "+ans2+", "+ans3+")";
     mycursor.execute(sql)
