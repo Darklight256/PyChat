@@ -126,6 +126,26 @@ def check_security_answer(name, ans1, ans2, ans3) :
     return flag
 #####################################################
 
+#############################CHANGE SECURITY QUESTIONS ANSWERS
+def change_ans (name, qst, ans) :
+    if qst == 1 :
+        sql = "UPDATE question SET answer1 = "+ans+" WHERE username = name";
+        mycursor.execute(sql)
+        connection.commit()
+        return True
+    if qst == 2 :
+        sql = "UPDATE question SET answer2 = "+ans+" WHERE username = name";
+        mycursor.execute(sql)
+        connection.commit()
+        return True
+    if qst == 3 :
+        sql = "UPDATE question SET answer3 = "+ans+" WHERE username = name";
+        mycursor.execute(sql)
+        connection.commit()
+        return True
+    return False
+##############################################################
+
 #############################ADD FRIEND
 #should be check
 def add_friend (name, new_frnd) :
