@@ -1,4 +1,5 @@
 import hashlib
+import random
 import pymysql
 import mysql.connector
 from mysql.connector import Error
@@ -182,6 +183,6 @@ def change_random_status (name, stts) :
         connection.commit()
 ##########################################
 
-#############################MATCH RANDOM
-
+#############################RANDOM MATCHING
+#random match by @darklight256
 #########################################
