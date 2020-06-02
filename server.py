@@ -14,6 +14,71 @@ print(connection)
 mycursor = connection.cursor()
 #################################################
 
+##############################GET INFO CLASS
+#1.fname 2.lname 3.username 4.uid 5.random status
+class usr_info :
+    def __init__ (self, fname, lname, name, uID, stts) :
+        self.Fname(fname)
+        self.Lname(lname)
+        self.username(name)
+        self.UID(uID)
+        self.rand_stts(stts)
+############################################
+
+##############################GET INFO FUNCTION
+def all_info_uid (uID) :
+    sql = "SELECT fName FROM `usr` WHERE uid = " + uID
+    mycursor.execute(sql)
+    usrfname = mycursor.fetchall()
+
+    sql = "SELECT lName FROM `usr` WHERE uid = " + uID
+    mycursor.execute(sql)
+    usrlname = mycursor.fetchall()
+
+    sql = "SELECT username FROM `usr` WHERE uid = " + uID
+    mycursor.execute(sql)
+    usrname = mycursor.fetchall()
+
+    sql = "SELECT uid FROM `random` WHERE uid = " + uID
+    mycursor.execute(sql)
+    res_size = mycursor.fetchall()
+    
+    rndstts = 0
+
+    if len(res_size) > 0 :
+        rndstts = 1
+
+    result = usr_info(usrfname, usrlname, usrname, str(uID), str(rndstts))
+    return result
+###############################################
+
+##############################GET INFO FUNCTION
+def all_info_usrname (name):
+    sql = "SELECT fName FROM `usr` WHERE username = " + name
+    mycursor.execute(sql)
+    usrfname = mycursor.fetchall()
+
+    sql = "SELECT lName FROM `usr` WHERE username = " + name
+    mycursor.execute(sql)
+    usrlname = mycursor.fetchall()
+
+    sql = "SELECT uid FROM `usr` WHERE username = " + name
+    mycursor.execute(sql)
+    UID = mycursor.fetchall()
+
+    sql = "SELECT uid FROM `random` WHERE uid = " + UID
+    mycursor.execute(sql)
+    res_size = mycursor.fetchall()
+
+    rndstts = 0
+
+    if len(res_size) > 0:
+        rndstts = 1
+
+    result = usr_info(usrfname, usrlname, name, str(UID), str(rndstts))
+    return result
+###############################################
+
 ##############################DATABASE ERASE
 def reset_database_user (name) :
     sql = "DELETE FROM `usr` WHERE username = " + name
