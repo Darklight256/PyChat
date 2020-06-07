@@ -249,22 +249,42 @@ def change_random_status (name, stts) :
 ##########################################
 
 #############################RANDOM MATCHING
-#random match by @darklight256
-#########################################
+def random_uid (name) :
+    sql = "SELECT uid FROM `usr` WHERE username = " + name
+    mycursor.execute(sql)
+    UID = mycursor.fetchall()
+
+    sql = "SELECT MAX(uid) FROM `usr`"
+    mycursor.execute(sql)
+    lst = mycursor.fetchall()[0]
+
+    rnd_uid = random.randint(1, lst)
+
+    sql = "SELECT uid FROM `random` WHERE uid = " + str(name)
+    mycursor.execute(sql)
+    myres = mycursor.fetchall()
+
+    while UID == rnd_uid and len(myres) > 0 :
+        rnd_uid = random.randint(1, lst)
+
+        sql = "SELECT uid FROM `random` WHERE uid = " + str(name)
+        mycursor.execute(sql)
+        myres = mycursor.fetchall()
+############################################
 
 #############################CHECK HUMAN ANSWER
-def check_human_answer (ans1, ans2, ans3, res1, res2, res3) :
-    if ans1 == res1 and ans2 == res2 and ans3 == res3 :
+def check_human_answer (ans, res) :
+    if ans == res :
         return True
     return False
 ###############################################
 
 #############################HUMAN VERIFY
-def human_test (g1 = 0, g2 = 0, g3 = 0) :
+def human_test (g1 = -1, g2 = -1, g3 = -1) :
     hmn_ver_ques = ["Which of the following is an animal?", "Which one is prime?", "Which one is biggest?", "Which one is smallest?", "What is the result of 1/2 + 1/4 + 1/8 + 1/16 + ... ?", "What is the result of 1/3 + 1/9 + 1/27 + 1/81 + ... ?", "What is the biggest 5 digit number?"]
     hmn_ver_ans = [["1. Dog    2. Book    3. Chair    4. iPhone   5. Pasta", "1. Kitchen    2. Airpod    3. Chicken    4. Door    5. CPU", "1. Banana    2. Video    3. Google    4. Lion    5. Pen"], ["1. 16    2. 13    3. 18    4. 4    5. 20", "1. 10    2. 555555577777    3. 98    4. 10000    5. 6", "1. 11    2. 21    3. 24    4. 12    5. 90"], ["1. 51    2. 1    3. -100    4. 51    5. 40", "1. 80    2. 21    3. 14    4. 82    5. 20", "1. 0    2. -123    3. 1    4. -2    5. -85"], ["1. 16    2. -13    3. 18    4. -4    5. 20", "1. 11    2. 587    3. 322    4. 12    5. 0", "1. -1000    2. 1    3. 2    4. 3    5. 4"], ["1. 3/4    2. 2/3    3. 1    4. 4/5    5. 2", "1. 2/5    2. 1    3. 2    4. 13/16    5. 7/8", "1. 5/8    2. 33/34    3. 1/2    4. 1    5. 2"], ["1. 1/2    2. 2/3    3. 1    4. 4/5    5. 2", "1. 5/8    2. 1/2    3. 8/9    4. 1    5. 2", "1. 2/9    2. 1/81    3. 1/2    4. 1    5. 2/3"], ["1. -99990    2. 99    3. 9999    4. 100000    5. none", "1. 99    2. 99999    3. 999    4. 100000    5. none", "1. 9234    2. -10000    3. 12345    4. 99999    5. 9090"]]
     hmn_ver_res = [[1, 3, 4], [2, 2, 1], [5, 4, 3], [2, 5, 1], [3, 2, 4], [1, 2, 3], [5, 2, 4]]
-    qst = 0
+    qst = -1
     while g1 == qst and g2 == qst and g3 == qst :
         qst = random.randint(0, 6)
     res = random.randint(0, 2)
