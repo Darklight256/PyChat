@@ -258,18 +258,18 @@ def random_uid (name) :
     mycursor.execute(sql)
     lst = mycursor.fetchall()[0]
 
-    rnd_uid = random.randint(1, lst)
+    cnt = 0
 
-    sql = "SELECT uid FROM `random` WHERE uid = " + str(name)
-    mycursor.execute(sql)
-    myres = mycursor.fetchall()
-
-    while UID == rnd_uid and len(myres) > 0 :
+    while True :
         rnd_uid = random.randint(1, lst)
-
-        sql = "SELECT uid FROM `random` WHERE uid = " + str(name)
+        sql = "SELECT uid FROM `random` WHERE uid = " + str(rnd_uid)
         mycursor.execute(sql)
         myres = mycursor.fetchall()
+        if rnd_uid != UID and len(myres) > 0 :
+            return rnd_uid
+        cnt = cnt + 1
+        if cnt == 100000 :
+            return -1
 ############################################
 
 #############################CHECK HUMAN ANSWER
