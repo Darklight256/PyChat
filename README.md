@@ -1,3 +1,3 @@
 # PyChat
 !!!
-Created by Y-Pers! ;)
+Created by Jalapeños! ;)
