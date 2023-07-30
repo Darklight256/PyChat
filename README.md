@@ -1,3 +1,1 @@
 # PyChat
-!!!
-Created by Jalapeños! ;)
